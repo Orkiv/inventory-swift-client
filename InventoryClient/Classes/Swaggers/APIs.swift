@@ -6,7 +6,7 @@
 
 import Foundation
 
-public class SwaggerClientAPI {
+public class InventoryClientAPI {
     public static var basePath = "https://www.orkiv.com/i/api"
     public static var credential: NSURLCredential?
     public static var customHeaders: [String:String] = [:]  
@@ -43,7 +43,7 @@ public class RequestBuilder<T> {
         self.parameters = parameters
         self.isBody = isBody
         
-        addHeaders(SwaggerClientAPI.customHeaders)
+        addHeaders(InventoryClientAPI.customHeaders)
     }
     
     public func addHeaders(aHeaders:[String:String]) {
@@ -62,7 +62,7 @@ public class RequestBuilder<T> {
     }
     
     public func addCredential() -> Self {
-        self.credential = SwaggerClientAPI.credential
+        self.credential = InventoryClientAPI.credential
         return self
     }
 }

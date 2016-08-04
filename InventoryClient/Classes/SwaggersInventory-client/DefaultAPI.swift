@@ -48,7 +48,7 @@ public class DefaultAPI: APIBase {
      */
     public class func allGetWithRequestBuilder() -> RequestBuilder<[InventoryGroup]> {
         let path = "/all/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [:]
  
@@ -56,7 +56,7 @@ public class DefaultAPI: APIBase {
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<[InventoryGroup]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<[InventoryGroup]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -91,7 +91,7 @@ public class DefaultAPI: APIBase {
      */
     public class func categoriesDeleteWithRequestBuilder(id id: String) -> RequestBuilder<Response> {
         let path = "/categories/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
             "id": id
@@ -101,7 +101,7 @@ public class DefaultAPI: APIBase {
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Response>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -138,12 +138,12 @@ public class DefaultAPI: APIBase {
      */
     public class func categoriesPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<[Category]> {
         let path = "/categories/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<[Category]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<[Category]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -183,12 +183,12 @@ public class DefaultAPI: APIBase {
      */
     public class func categoriesPutWithRequestBuilder(id id: String, category: Category) -> RequestBuilder<Category> {
         let path = "/categories/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = category.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Category>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Category>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -231,12 +231,12 @@ public class DefaultAPI: APIBase {
      */
     public class func itemAddPostWithRequestBuilder(item item: Item) -> RequestBuilder<Item> {
         let path = "/item/add/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = item.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Item>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Item>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -271,12 +271,12 @@ public class DefaultAPI: APIBase {
      */
     public class func itemAddbulkPostWithRequestBuilder(items items: [Item]) -> RequestBuilder<Response> {
         let path = "/item/addbulk/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = items.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Response>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -311,7 +311,7 @@ public class DefaultAPI: APIBase {
      */
     public class func itemDeleteWithRequestBuilder(id id: String) -> RequestBuilder<Response> {
         let path = "/item/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
             "id": id
@@ -321,7 +321,7 @@ public class DefaultAPI: APIBase {
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Response>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -358,12 +358,12 @@ public class DefaultAPI: APIBase {
      */
     public class func itemPutWithRequestBuilder(id id: String, item: Dictionary) -> RequestBuilder<Response> {
         let path = "/item/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = item.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Response>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -396,12 +396,12 @@ public class DefaultAPI: APIBase {
      */
     public class func itemsCountPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<Double> {
         let path = "/items/count/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Double>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Double>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -444,12 +444,12 @@ public class DefaultAPI: APIBase {
      */
     public class func itemsPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<[Item]> {
         let path = "/items/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<[Item]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<[Item]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -482,12 +482,12 @@ public class DefaultAPI: APIBase {
      */
     public class func itemsallfieldsPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<[Dictionary]> {
         let path = "/items/?allfields"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<[Dictionary]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<[Dictionary]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -541,12 +541,12 @@ public class DefaultAPI: APIBase {
      */
     public class func ordersPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<[Order]> {
         let path = "/orders/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<[Order]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<[Order]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -601,12 +601,12 @@ public class DefaultAPI: APIBase {
      */
     public class func queryPostWithRequestBuilder(page page: Double? = nil, categoryid: String? = nil, sort: String? = nil, search: String? = nil, minprice: Double? = nil, maxprice: Double? = nil, query: Dictionary? = nil) -> RequestBuilder<[Item]> {
         let path = "/query/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<[Item]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<[Item]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -651,12 +651,12 @@ public class DefaultAPI: APIBase {
      */
     public class func queryallfieldsPostWithRequestBuilder(page page: Double? = nil, categoryid: String? = nil, sort: String? = nil, search: String? = nil, minprice: Double? = nil, maxprice: Double? = nil, query: Dictionary? = nil) -> RequestBuilder<[Dictionary]> {
         let path = "/query/?allfields"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<[Dictionary]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<[Dictionary]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -691,7 +691,7 @@ public class DefaultAPI: APIBase {
      */
     public class func servicesDeleteWithRequestBuilder(id id: String) -> RequestBuilder<Response> {
         let path = "/services/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
             "id": id
@@ -701,7 +701,7 @@ public class DefaultAPI: APIBase {
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Response>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -741,7 +741,7 @@ public class DefaultAPI: APIBase {
      */
     public class func servicesGetWithRequestBuilder() -> RequestBuilder<[Service]> {
         let path = "/services/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [:]
  
@@ -749,7 +749,7 @@ public class DefaultAPI: APIBase {
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<[Service]>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<[Service]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -792,12 +792,12 @@ public class DefaultAPI: APIBase {
      */
     public class func servicesPostWithRequestBuilder(service service: Service) -> RequestBuilder<Service> {
         let path = "/services/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = service.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Service>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Service>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
@@ -834,12 +834,12 @@ public class DefaultAPI: APIBase {
      */
     public class func servicesPutWithRequestBuilder(id id: String, service: Service) -> RequestBuilder<Response> {
         let path = "/services/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = service.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Response>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -874,7 +874,7 @@ public class DefaultAPI: APIBase {
      */
     public class func writeDeleteWithRequestBuilder(id id: String? = nil) -> RequestBuilder<Response> {
         let path = "/write/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
 
         let nillableParameters: [String:AnyObject?] = [
             "id": id
@@ -884,7 +884,7 @@ public class DefaultAPI: APIBase {
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Response>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -920,12 +920,12 @@ public class DefaultAPI: APIBase {
      */
     public class func writePostWithRequestBuilder(eventRequest eventRequest: EventRequest) -> RequestBuilder<Response> {
         let path = "/write/"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = InventoryClientAPI.basePath + path
         let parameters = eventRequest.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
-        let requestBuilder: RequestBuilder<Response>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
     }
