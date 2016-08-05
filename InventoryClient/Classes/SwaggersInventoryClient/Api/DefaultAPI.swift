@@ -35,6 +35,11 @@ public class DefaultAPI: APIBase {
     "quantity" : "aeiou",
     "ordprice" : 1.3579000000000001069366817318950779736042022705078125,
     "price" : "aeiou",
+    "variations" : [ {
+      "priceChange" : 1.3579000000000001069366817318950779736042022705078125,
+      "name" : "aeiou",
+      "id" : "aeiou"
+    } ],
     "Buy" : "aeiou",
     "name" : "aeiou",
     "id" : "aeiou",
@@ -111,7 +116,7 @@ public class DefaultAPI: APIBase {
      - parameter query: (body) Category to query against system (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func categoriesPost(query query: Dictionary? = nil, completion: ((data: [Category]?, error: ErrorType?) -> Void)) {
+    public class func categoriesPost(query query: Category? = nil, completion: ((data: [Category]?, error: ErrorType?) -> Void)) {
         categoriesPostWithRequestBuilder(query: query).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -136,7 +141,7 @@ public class DefaultAPI: APIBase {
 
      - returns: RequestBuilder<[Category]> 
      */
-    public class func categoriesPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<[Category]> {
+    public class func categoriesPostWithRequestBuilder(query query: Category? = nil) -> RequestBuilder<[Category]> {
         let path = "/categories/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
@@ -198,7 +203,7 @@ public class DefaultAPI: APIBase {
      - parameter item: (body) Item to create. 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func itemAddPost(item item: Item, completion: ((data: Item?, error: ErrorType?) -> Void)) {
+    public class func itemAddPost(item item: ItemRequest, completion: ((data: Item?, error: ErrorType?) -> Void)) {
         itemAddPostWithRequestBuilder(item: item).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -217,6 +222,11 @@ public class DefaultAPI: APIBase {
   "quantity" : "aeiou",
   "ordprice" : 1.3579000000000001069366817318950779736042022705078125,
   "price" : "aeiou",
+  "variations" : [ {
+    "priceChange" : 1.3579000000000001069366817318950779736042022705078125,
+    "name" : "aeiou",
+    "id" : "aeiou"
+  } ],
   "Buy" : "aeiou",
   "name" : "aeiou",
   "id" : "aeiou",
@@ -229,7 +239,7 @@ public class DefaultAPI: APIBase {
 
      - returns: RequestBuilder<Item> 
      */
-    public class func itemAddPostWithRequestBuilder(item item: Item) -> RequestBuilder<Item> {
+    public class func itemAddPostWithRequestBuilder(item item: ItemRequest) -> RequestBuilder<Item> {
         let path = "/item/add/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = item.encodeToJSON() as? [String:AnyObject]
@@ -246,7 +256,7 @@ public class DefaultAPI: APIBase {
      - parameter items: (body) Items to create. 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func itemAddbulkPost(items items: [Item], completion: ((data: Response?, error: ErrorType?) -> Void)) {
+    public class func itemAddbulkPost(items items: [ItemRequest], completion: ((data: Response?, error: ErrorType?) -> Void)) {
         itemAddbulkPostWithRequestBuilder(items: items).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -269,7 +279,7 @@ public class DefaultAPI: APIBase {
 
      - returns: RequestBuilder<Response> 
      */
-    public class func itemAddbulkPostWithRequestBuilder(items items: [Item]) -> RequestBuilder<Response> {
+    public class func itemAddbulkPostWithRequestBuilder(items items: [ItemRequest]) -> RequestBuilder<Response> {
         let path = "/item/addbulk/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = items.encodeToJSON() as? [String:AnyObject]
@@ -328,11 +338,160 @@ public class DefaultAPI: APIBase {
 
     /**
 
+     - parameter id: (query) Item ID to open. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func itemGet(id id: String, completion: ((data: Item?, error: ErrorType?) -> Void)) {
+        itemGetWithRequestBuilder(id: id).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - GET /item/
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example={
+  "quantity" : "aeiou",
+  "ordprice" : 1.3579000000000001069366817318950779736042022705078125,
+  "price" : "aeiou",
+  "variations" : [ {
+    "priceChange" : 1.3579000000000001069366817318950779736042022705078125,
+    "name" : "aeiou",
+    "id" : "aeiou"
+  } ],
+  "Buy" : "aeiou",
+  "name" : "aeiou",
+  "id" : "aeiou",
+  "media" : [ "aeiou" ],
+  "category" : "aeiou",
+  "desc" : "aeiou"
+}}]
+     
+     - parameter id: (query) Item ID to open. 
+
+     - returns: RequestBuilder<Item> 
+     */
+    public class func itemGetWithRequestBuilder(id id: String) -> RequestBuilder<Item> {
+        let path = "/item/"
+        let URLString = InventoryClientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "id": id
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Item>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+
+     - parameter imageurl: (query) URL of image to remove 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func itemMediaDelete(imageurl imageurl: String, completion: ((data: Response?, error: ErrorType?) -> Void)) {
+        itemMediaDeleteWithRequestBuilder(imageurl: imageurl).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - DELETE /item-media/
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example={
+  "approved" : 1.3579000000000001069366817318950779736042022705078125
+}}]
+     
+     - parameter imageurl: (query) URL of image to remove 
+
+     - returns: RequestBuilder<Response> 
+     */
+    public class func itemMediaDeleteWithRequestBuilder(imageurl imageurl: String) -> RequestBuilder<Response> {
+        let path = "/item-media/"
+        let URLString = InventoryClientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "imageurl": imageurl
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+
+     - parameter id: (query) Valid item id to bind image to. 
+     - parameter image: (form) Image. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func itemMediaPost(id id: String, image: NSURL, completion: ((data: String?, error: ErrorType?) -> Void)) {
+        itemMediaPostWithRequestBuilder(id: id, image: image).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - POST /item-media/
+     - This endpoint is currently in testing.
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example="aeiou"}]
+     
+     - parameter id: (query) Valid item id to bind image to. 
+     - parameter image: (form) Image. 
+
+     - returns: RequestBuilder<String> 
+     */
+    public class func itemMediaPostWithRequestBuilder(id id: String, image: NSURL) -> RequestBuilder<String> {
+        let path = "/item-media/"
+        let URLString = InventoryClientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "id": id
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<String>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: falsefalse)
+    }
+
+    /**
+
      - parameter id: (query) item id to update. 
      - parameter item: (body) New item information. 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func itemPut(id id: String, item: Dictionary, completion: ((data: Response?, error: ErrorType?) -> Void)) {
+    public class func itemPut(id id: String, item: ItemRequest, completion: ((data: Response?, error: ErrorType?) -> Void)) {
         itemPutWithRequestBuilder(id: id, item: item).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -356,7 +515,7 @@ public class DefaultAPI: APIBase {
 
      - returns: RequestBuilder<Response> 
      */
-    public class func itemPutWithRequestBuilder(id id: String, item: Dictionary) -> RequestBuilder<Response> {
+    public class func itemPutWithRequestBuilder(id id: String, item: ItemRequest) -> RequestBuilder<Response> {
         let path = "/item/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = item.encodeToJSON() as? [String:AnyObject]
@@ -370,11 +529,13 @@ public class DefaultAPI: APIBase {
 
     /**
 
+     - parameter minprice: (query) Min price of items to find (optional)
+     - parameter maxprice: (query) Max price of items to find (optional)
      - parameter query: (body) Item to query against system. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func itemsCountPost(query query: Dictionary? = nil, completion: ((data: Double?, error: ErrorType?) -> Void)) {
-        itemsCountPostWithRequestBuilder(query: query).execute { (response, error) -> Void in
+    public class func itemsCountPost(minprice minprice: Double? = nil, maxprice: Double? = nil, query: ItemRequest? = nil, completion: ((data: Double?, error: ErrorType?) -> Void)) {
+        itemsCountPostWithRequestBuilder(minprice: minprice, maxprice: maxprice, query: query).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
@@ -390,11 +551,13 @@ public class DefaultAPI: APIBase {
        - name: AccountID
      - examples: [{contentType=application/json, example=1.3579000000000001069366817318950779736042022705078125}]
      
+     - parameter minprice: (query) Min price of items to find (optional)
+     - parameter maxprice: (query) Max price of items to find (optional)
      - parameter query: (body) Item to query against system. (optional)
 
      - returns: RequestBuilder<Double> 
      */
-    public class func itemsCountPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<Double> {
+    public class func itemsCountPostWithRequestBuilder(minprice minprice: Double? = nil, maxprice: Double? = nil, query: ItemRequest? = nil) -> RequestBuilder<Double> {
         let path = "/items/count/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
@@ -403,16 +566,18 @@ public class DefaultAPI: APIBase {
  
         let requestBuilder: RequestBuilder<Double>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**
 
+     - parameter minprice: (query) Min price of items to find (optional)
+     - parameter maxprice: (query) Max price of items to find (optional)
      - parameter query: (body) Item to query against system. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func itemsPost(query query: Dictionary? = nil, completion: ((data: [Item]?, error: ErrorType?) -> Void)) {
-        itemsPostWithRequestBuilder(query: query).execute { (response, error) -> Void in
+    public class func itemsPost(minprice minprice: Double? = nil, maxprice: Double? = nil, query: ItemRequest? = nil, completion: ((data: [Item]?, error: ErrorType?) -> Void)) {
+        itemsPostWithRequestBuilder(minprice: minprice, maxprice: maxprice, query: query).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
     }
@@ -430,6 +595,11 @@ public class DefaultAPI: APIBase {
   "quantity" : "aeiou",
   "ordprice" : 1.3579000000000001069366817318950779736042022705078125,
   "price" : "aeiou",
+  "variations" : [ {
+    "priceChange" : 1.3579000000000001069366817318950779736042022705078125,
+    "name" : "aeiou",
+    "id" : "aeiou"
+  } ],
   "Buy" : "aeiou",
   "name" : "aeiou",
   "id" : "aeiou",
@@ -438,11 +608,13 @@ public class DefaultAPI: APIBase {
   "desc" : "aeiou"
 } ]}]
      
+     - parameter minprice: (query) Min price of items to find (optional)
+     - parameter maxprice: (query) Max price of items to find (optional)
      - parameter query: (body) Item to query against system. (optional)
 
      - returns: RequestBuilder<[Item]> 
      */
-    public class func itemsPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<[Item]> {
+    public class func itemsPostWithRequestBuilder(minprice minprice: Double? = nil, maxprice: Double? = nil, query: ItemRequest? = nil) -> RequestBuilder<[Item]> {
         let path = "/items/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
@@ -451,53 +623,15 @@ public class DefaultAPI: APIBase {
  
         let requestBuilder: RequestBuilder<[Item]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
 
     /**
 
-     - parameter query: (body) Item to query against system. (optional)
+     - parameter query: (body) Order to query against item invoices. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func itemsallfieldsPost(query query: Dictionary? = nil, completion: ((data: [Dictionary]?, error: ErrorType?) -> Void)) {
-        itemsallfieldsPostWithRequestBuilder(query: query).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
-        }
-    }
-
-
-    /**
-     - POST /items/?allfields
-     - API Key:
-       - type: apiKey APIKey 
-       - name: APIKey
-     - API Key:
-       - type: apiKey accountid 
-       - name: AccountID
-     - examples: [{contentType=application/json, example=[ { } ]}]
-     
-     - parameter query: (body) Item to query against system. (optional)
-
-     - returns: RequestBuilder<[Dictionary]> 
-     */
-    public class func itemsallfieldsPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<[Dictionary]> {
-        let path = "/items/?allfields"
-        let URLString = InventoryClientAPI.basePath + path
-        let parameters = query?.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<[Dictionary]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
-    }
-
-    /**
-
-     - parameter query: (body) Order to query against system. (optional)
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    public class func ordersPost(query query: Dictionary? = nil, completion: ((data: [Order]?, error: ErrorType?) -> Void)) {
+    public class func ordersPost(query query: OrderRequest? = nil, completion: ((data: [Order]?, error: ErrorType?) -> Void)) {
         ordersPostWithRequestBuilder(query: query).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -535,12 +669,71 @@ public class DefaultAPI: APIBase {
   "order_id" : "aeiou"
 } ]}]
      
-     - parameter query: (body) Order to query against system. (optional)
+     - parameter query: (body) Order to query against item invoices. (optional)
 
      - returns: RequestBuilder<[Order]> 
      */
-    public class func ordersPostWithRequestBuilder(query query: Dictionary? = nil) -> RequestBuilder<[Order]> {
+    public class func ordersPostWithRequestBuilder(query query: OrderRequest? = nil) -> RequestBuilder<[Order]> {
         let path = "/orders/"
+        let URLString = InventoryClientAPI.basePath + path
+        let parameters = query?.encodeToJSON() as? [String:AnyObject]
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<[Order]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: true)
+    }
+
+    /**
+
+     - parameter query: (body) Order to query against service invoices. (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func ordersServicesPost(query query: OrderRequest? = nil, completion: ((data: [Order]?, error: ErrorType?) -> Void)) {
+        ordersServicesPostWithRequestBuilder(query: query).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - POST /orders/services/
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example=[ {
+  "tax_amount" : 1.3579000000000001069366817318950779736042022705078125,
+  "info_first" : "aeiou",
+  "info_last" : "aeiou",
+  "shipset" : true,
+  "itemIDs" : [ "aeiou" ],
+  "amount_total" : 1.3579000000000001069366817318950779736042022705078125,
+  "info_scty" : "aeiou",
+  "info_zip" : "aeiou",
+  "shipping_amount" : 1.3579000000000001069366817318950779736042022705078125,
+  "info_adr1" : "aeiou",
+  "info_adr2" : "aeiou",
+  "info_sadr2" : "aeiou",
+  "phone" : "aeiou",
+  "info_sadr1" : "aeiou",
+  "info_szip" : "aeiou",
+  "sstate" : "aeiou",
+  "info_cty" : "aeiou",
+  "info_email" : "aeiou",
+  "state" : "aeiou",
+  "order_id" : "aeiou"
+} ]}]
+     
+     - parameter query: (body) Order to query against service invoices. (optional)
+
+     - returns: RequestBuilder<[Order]> 
+     */
+    public class func ordersServicesPostWithRequestBuilder(query query: OrderRequest? = nil) -> RequestBuilder<[Order]> {
+        let path = "/orders/services/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
  
@@ -557,12 +750,12 @@ public class DefaultAPI: APIBase {
      - parameter categoryid: (query) Get items under specified category id. (optional)
      - parameter sort: (query) Comma delimited Sort string. ie ; +ordprice. Please use number based fields only (optional)
      - parameter search: (query) Performs a regex pattern match against the items within your account (optional)
-     - parameter minprice: (query) Min price in hundreds. (optional)
-     - parameter maxprice: (query) Max price in hudreds. (optional)
+     - parameter minprice: (query) Min price in hundreds (cents). (optional)
+     - parameter maxprice: (query) Max price in hundreds (cents). (optional)
      - parameter query: (body) Custom parameters to query against system. (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func queryPost(page page: Double? = nil, categoryid: String? = nil, sort: String? = nil, search: String? = nil, minprice: Double? = nil, maxprice: Double? = nil, query: Dictionary? = nil, completion: ((data: [Item]?, error: ErrorType?) -> Void)) {
+    public class func queryPost(page page: Double? = nil, categoryid: String? = nil, sort: String? = nil, search: String? = nil, minprice: Double? = nil, maxprice: Double? = nil, query: ItemRequest? = nil, completion: ((data: [Item]?, error: ErrorType?) -> Void)) {
         queryPostWithRequestBuilder(page: page, categoryid: categoryid, sort: sort, search: search, minprice: minprice, maxprice: maxprice, query: query).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -581,6 +774,11 @@ public class DefaultAPI: APIBase {
   "quantity" : "aeiou",
   "ordprice" : 1.3579000000000001069366817318950779736042022705078125,
   "price" : "aeiou",
+  "variations" : [ {
+    "priceChange" : 1.3579000000000001069366817318950779736042022705078125,
+    "name" : "aeiou",
+    "id" : "aeiou"
+  } ],
   "Buy" : "aeiou",
   "name" : "aeiou",
   "id" : "aeiou",
@@ -593,13 +791,13 @@ public class DefaultAPI: APIBase {
      - parameter categoryid: (query) Get items under specified category id. (optional)
      - parameter sort: (query) Comma delimited Sort string. ie ; +ordprice. Please use number based fields only (optional)
      - parameter search: (query) Performs a regex pattern match against the items within your account (optional)
-     - parameter minprice: (query) Min price in hundreds. (optional)
-     - parameter maxprice: (query) Max price in hudreds. (optional)
+     - parameter minprice: (query) Min price in hundreds (cents). (optional)
+     - parameter maxprice: (query) Max price in hundreds (cents). (optional)
      - parameter query: (body) Custom parameters to query against system. (optional)
 
      - returns: RequestBuilder<[Item]> 
      */
-    public class func queryPostWithRequestBuilder(page page: Double? = nil, categoryid: String? = nil, sort: String? = nil, search: String? = nil, minprice: Double? = nil, maxprice: Double? = nil, query: Dictionary? = nil) -> RequestBuilder<[Item]> {
+    public class func queryPostWithRequestBuilder(page page: Double? = nil, categoryid: String? = nil, sort: String? = nil, search: String? = nil, minprice: Double? = nil, maxprice: Double? = nil, query: ItemRequest? = nil) -> RequestBuilder<[Item]> {
         let path = "/query/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = query?.encodeToJSON() as? [String:AnyObject]
@@ -607,56 +805,6 @@ public class DefaultAPI: APIBase {
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  
         let requestBuilder: RequestBuilder<[Item]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
-    }
-
-    /**
-
-     - parameter page: (query) Current page index. (optional)
-     - parameter categoryid: (query) Get items under specified category id. (optional)
-     - parameter sort: (query) Comma delimited Sort string. ie ; +ordprice. Please use number based fields only (optional)
-     - parameter search: (query) Performs a regex pattern match against the items within your account (optional)
-     - parameter minprice: (query) Min price in hundreds. (optional)
-     - parameter maxprice: (query) Max price in hudreds. (optional)
-     - parameter query: (body) Custom parameters to query against system. (optional)
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    public class func queryallfieldsPost(page page: Double? = nil, categoryid: String? = nil, sort: String? = nil, search: String? = nil, minprice: Double? = nil, maxprice: Double? = nil, query: Dictionary? = nil, completion: ((data: [Dictionary]?, error: ErrorType?) -> Void)) {
-        queryallfieldsPostWithRequestBuilder(page: page, categoryid: categoryid, sort: sort, search: search, minprice: minprice, maxprice: maxprice, query: query).execute { (response, error) -> Void in
-            completion(data: response?.body, error: error);
-        }
-    }
-
-
-    /**
-     - POST /query/?allfields
-     - API Key:
-       - type: apiKey APIKey 
-       - name: APIKey
-     - API Key:
-       - type: apiKey accountid 
-       - name: AccountID
-     - examples: [{contentType=application/json, example=[ { } ]}]
-     
-     - parameter page: (query) Current page index. (optional)
-     - parameter categoryid: (query) Get items under specified category id. (optional)
-     - parameter sort: (query) Comma delimited Sort string. ie ; +ordprice. Please use number based fields only (optional)
-     - parameter search: (query) Performs a regex pattern match against the items within your account (optional)
-     - parameter minprice: (query) Min price in hundreds. (optional)
-     - parameter maxprice: (query) Max price in hudreds. (optional)
-     - parameter query: (body) Custom parameters to query against system. (optional)
-
-     - returns: RequestBuilder<[Dictionary]> 
-     */
-    public class func queryallfieldsPostWithRequestBuilder(page page: Double? = nil, categoryid: String? = nil, sort: String? = nil, search: String? = nil, minprice: Double? = nil, maxprice: Double? = nil, query: Dictionary? = nil) -> RequestBuilder<[Dictionary]> {
-        let path = "/query/?allfields"
-        let URLString = InventoryClientAPI.basePath + path
-        let parameters = query?.encodeToJSON() as? [String:AnyObject]
- 
-        let convertedParameters = APIHelper.convertBoolToString(parameters)
- 
-        let requestBuilder: RequestBuilder<[Dictionary]>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
     }
@@ -730,7 +878,7 @@ public class DefaultAPI: APIBase {
   "price" : "aeiou",
   "name" : "aeiou",
   "event" : {
-    "postbody" : { },
+    "postbody" : "aeiou",
     "serviceid" : "aeiou",
     "url" : "aeiou"
   },
@@ -756,10 +904,63 @@ public class DefaultAPI: APIBase {
 
     /**
 
+     - parameter id: (query) ID of service to open 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func servicesOpenGet(id id: String, completion: ((data: Service?, error: ErrorType?) -> Void)) {
+        servicesOpenGetWithRequestBuilder(id: id).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - GET /services/open/
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example={
+  "recurpric" : "aeiou",
+  "price" : "aeiou",
+  "name" : "aeiou",
+  "event" : {
+    "postbody" : "aeiou",
+    "serviceid" : "aeiou",
+    "url" : "aeiou"
+  },
+  "desc" : "aeiou"
+}}]
+     
+     - parameter id: (query) ID of service to open 
+
+     - returns: RequestBuilder<Service> 
+     */
+    public class func servicesOpenGetWithRequestBuilder(id id: String) -> RequestBuilder<Service> {
+        let path = "/services/open/"
+        let URLString = InventoryClientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "id": id
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Service>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+
      - parameter service: (body) Service to create. 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func servicesPost(service service: Service, completion: ((data: Service?, error: ErrorType?) -> Void)) {
+    public class func servicesPost(service service: ServiceRequest, completion: ((data: Service?, error: ErrorType?) -> Void)) {
         servicesPostWithRequestBuilder(service: service).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -779,7 +980,7 @@ public class DefaultAPI: APIBase {
   "price" : "aeiou",
   "name" : "aeiou",
   "event" : {
-    "postbody" : { },
+    "postbody" : "aeiou",
     "serviceid" : "aeiou",
     "url" : "aeiou"
   },
@@ -790,7 +991,7 @@ public class DefaultAPI: APIBase {
 
      - returns: RequestBuilder<Service> 
      */
-    public class func servicesPostWithRequestBuilder(service service: Service) -> RequestBuilder<Service> {
+    public class func servicesPostWithRequestBuilder(service service: ServiceRequest) -> RequestBuilder<Service> {
         let path = "/services/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = service.encodeToJSON() as? [String:AnyObject]
@@ -808,7 +1009,7 @@ public class DefaultAPI: APIBase {
      - parameter service: (body) New service data to set. 
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public class func servicesPut(id id: String, service: Service, completion: ((data: Response?, error: ErrorType?) -> Void)) {
+    public class func servicesPut(id id: String, service: ServiceRequest, completion: ((data: Response?, error: ErrorType?) -> Void)) {
         servicesPutWithRequestBuilder(id: id, service: service).execute { (response, error) -> Void in
             completion(data: response?.body, error: error);
         }
@@ -832,10 +1033,186 @@ public class DefaultAPI: APIBase {
 
      - returns: RequestBuilder<Response> 
      */
-    public class func servicesPutWithRequestBuilder(id id: String, service: Service) -> RequestBuilder<Response> {
+    public class func servicesPutWithRequestBuilder(id id: String, service: ServiceRequest) -> RequestBuilder<Response> {
         let path = "/services/"
         let URLString = InventoryClientAPI.basePath + path
         let parameters = service.encodeToJSON() as? [String:AnyObject]
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "PUT", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+
+     - parameter id: (query) variation id to remove 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func variationDelete(id id: String, completion: ((data: Response?, error: ErrorType?) -> Void)) {
+        variationDeleteWithRequestBuilder(id: id).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - DELETE /variation/
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example={
+  "approved" : 1.3579000000000001069366817318950779736042022705078125
+}}]
+     
+     - parameter id: (query) variation id to remove 
+
+     - returns: RequestBuilder<Response> 
+     */
+    public class func variationDeleteWithRequestBuilder(id id: String) -> RequestBuilder<Response> {
+        let path = "/variation/"
+        let URLString = InventoryClientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "id": id
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+
+     - parameter id: (query) Variation ID to open. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func variationGet(id id: String, completion: ((data: Variation?, error: ErrorType?) -> Void)) {
+        variationGetWithRequestBuilder(id: id).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - GET /variation/
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example={
+  "priceChange" : 1.3579000000000001069366817318950779736042022705078125,
+  "name" : "aeiou",
+  "id" : "aeiou"
+}}]
+     
+     - parameter id: (query) Variation ID to open. 
+
+     - returns: RequestBuilder<Variation> 
+     */
+    public class func variationGetWithRequestBuilder(id id: String) -> RequestBuilder<Variation> {
+        let path = "/variation/"
+        let URLString = InventoryClientAPI.basePath + path
+
+        let nillableParameters: [String:AnyObject?] = [
+            "id": id
+        ]
+ 
+        let parameters = APIHelper.rejectNil(nillableParameters)
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Variation>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+
+     - parameter id: (query) Valid item id to bind variation to. 
+     - parameter item: (body) Variation information. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func variationPost(id id: String, item: Variation, completion: ((data: Response?, error: ErrorType?) -> Void)) {
+        variationPostWithRequestBuilder(id: id, item: item).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - POST /variation/
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example={
+  "approved" : 1.3579000000000001069366817318950779736042022705078125
+}}]
+     
+     - parameter id: (query) Valid item id to bind variation to. 
+     - parameter item: (body) Variation information. 
+
+     - returns: RequestBuilder<Response> 
+     */
+    public class func variationPostWithRequestBuilder(id id: String, item: Variation) -> RequestBuilder<Response> {
+        let path = "/variation/"
+        let URLString = InventoryClientAPI.basePath + path
+        let parameters = item.encodeToJSON() as? [String:AnyObject]
+ 
+        let convertedParameters = APIHelper.convertBoolToString(parameters)
+ 
+        let requestBuilder: RequestBuilder<Response>.Type = InventoryClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "POST", URLString: URLString, parameters: convertedParameters, isBody: false)
+    }
+
+    /**
+
+     - parameter id: (query) variation id to update. 
+     - parameter item: (body) New variation information. 
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    public class func variationPut(id id: String, item: Variation, completion: ((data: Response?, error: ErrorType?) -> Void)) {
+        variationPutWithRequestBuilder(id: id, item: item).execute { (response, error) -> Void in
+            completion(data: response?.body, error: error);
+        }
+    }
+
+
+    /**
+     - PUT /variation/
+     - API Key:
+       - type: apiKey APIKey 
+       - name: APIKey
+     - API Key:
+       - type: apiKey accountid 
+       - name: AccountID
+     - examples: [{contentType=application/json, example={
+  "approved" : 1.3579000000000001069366817318950779736042022705078125
+}}]
+     
+     - parameter id: (query) variation id to update. 
+     - parameter item: (body) New variation information. 
+
+     - returns: RequestBuilder<Response> 
+     */
+    public class func variationPutWithRequestBuilder(id id: String, item: Variation) -> RequestBuilder<Response> {
+        let path = "/variation/"
+        let URLString = InventoryClientAPI.basePath + path
+        let parameters = item.encodeToJSON() as? [String:AnyObject]
  
         let convertedParameters = APIHelper.convertBoolToString(parameters)
  

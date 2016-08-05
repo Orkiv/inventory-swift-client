@@ -21,6 +21,7 @@ public class Item: JSONEncodable {
     public var ordprice: Double?
     /** String value of price */
     public var price: String?
+    public var variations: [Variation]?
     /** Inventory quantity */
     public var quantity: String?
     /** Array of item media */
@@ -39,6 +40,7 @@ public class Item: JSONEncodable {
         nillableDictionary["name"] = self.name
         nillableDictionary["ordprice"] = self.ordprice
         nillableDictionary["price"] = self.price
+        nillableDictionary["variations"] = self.variations?.encodeToJSON()
         nillableDictionary["quantity"] = self.quantity
         nillableDictionary["media"] = self.media?.encodeToJSON()
         nillableDictionary["Buy"] = self.buy

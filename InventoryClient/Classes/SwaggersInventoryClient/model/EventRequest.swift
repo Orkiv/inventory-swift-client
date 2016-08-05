@@ -13,7 +13,8 @@ public class EventRequest: JSONEncodable {
     public var url: String?
     /** ServiceID to bind event to. */
     public var serviceid: String?
-    public var postbody: Dictionary?
+    /** Valid JSON of Key-value parameters to post to url */
+    public var postbody: String?
 
     public init() {}
 
@@ -22,7 +23,7 @@ public class EventRequest: JSONEncodable {
         var nillableDictionary = [String:AnyObject?]()
         nillableDictionary["url"] = self.url
         nillableDictionary["serviceid"] = self.serviceid
-        nillableDictionary["postbody"] = self.postbody?.encodeToJSON()
+        nillableDictionary["postbody"] = self.postbody
         let dictionary: [String:AnyObject] = APIHelper.rejectNil(nillableDictionary) ?? [:]
         return dictionary
     }

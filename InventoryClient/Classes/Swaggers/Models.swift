@@ -146,18 +146,6 @@ class Decoders {
             }
 
 
-            // Decoder for [Dictionary]
-            Decoders.addDecoder(clazz: [Dictionary].self) { (source: AnyObject) -> [Dictionary] in
-                return Decoders.decode(clazz: [Dictionary].self, source: source)
-            }
-            // Decoder for Dictionary
-            Decoders.addDecoder(clazz: Dictionary.self) { (source: AnyObject) -> Dictionary in
-                let sourceDictionary = source as! [NSObject:AnyObject]
-                let instance = Dictionary()
-                return instance
-            }
-
-
             // Decoder for [Error]
             Decoders.addDecoder(clazz: [Error].self) { (source: AnyObject) -> [Error] in
                 return Decoders.decode(clazz: [Error].self, source: source)
@@ -181,7 +169,7 @@ class Decoders {
                 let instance = EventRequest()
                 instance.url = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["url"])
                 instance.serviceid = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["serviceid"])
-                instance.postbody = Decoders.decodeOptional(clazz: Dictionary.self, source: sourceDictionary["postbody"])
+                instance.postbody = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["postbody"])
                 return instance
             }
 
@@ -214,9 +202,29 @@ class Decoders {
                 instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
                 instance.ordprice = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["ordprice"])
                 instance.price = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["price"])
+                instance.variations = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["variations"])
                 instance.quantity = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["quantity"])
                 instance.media = Decoders.decodeOptional(clazz: Array.self, source: sourceDictionary["media"])
                 instance.buy = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["Buy"])
+                return instance
+            }
+
+
+            // Decoder for [ItemRequest]
+            Decoders.addDecoder(clazz: [ItemRequest].self) { (source: AnyObject) -> [ItemRequest] in
+                return Decoders.decode(clazz: [ItemRequest].self, source: source)
+            }
+            // Decoder for ItemRequest
+            Decoders.addDecoder(clazz: ItemRequest.self) { (source: AnyObject) -> ItemRequest in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = ItemRequest()
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
+                instance.category = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["category"])
+                instance.desc = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["desc"])
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.ordprice = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["ordprice"])
+                instance.price = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["price"])
+                instance.quantity = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["quantity"])
                 return instance
             }
 
@@ -253,6 +261,37 @@ class Decoders {
             }
 
 
+            // Decoder for [OrderRequest]
+            Decoders.addDecoder(clazz: [OrderRequest].self) { (source: AnyObject) -> [OrderRequest] in
+                return Decoders.decode(clazz: [OrderRequest].self, source: source)
+            }
+            // Decoder for OrderRequest
+            Decoders.addDecoder(clazz: OrderRequest.self) { (source: AnyObject) -> OrderRequest in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = OrderRequest()
+                instance.orderId = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["order_id"])
+                instance.infoEmail = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_email"])
+                instance.infoFirst = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_first"])
+                instance.infoLast = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_last"])
+                instance.phone = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["phone"])
+                instance.shipset = Decoders.decodeOptional(clazz: Bool.self, source: sourceDictionary["shipset"])
+                instance.infoAdr1 = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_adr1"])
+                instance.infoAdr2 = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_adr2"])
+                instance.infoCty = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_cty"])
+                instance.infoZip = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_zip"])
+                instance.state = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["state"])
+                instance.infoSadr1 = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_sadr1"])
+                instance.infoSadr2 = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_sadr2"])
+                instance.infoScty = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_scty"])
+                instance.infoSzip = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["info_szip"])
+                instance.sstate = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["sstate"])
+                instance.taxAmount = Decoders.decodeOptional(clazz: Float.self, source: sourceDictionary["tax_amount"])
+                instance.shippingAmount = Decoders.decodeOptional(clazz: Float.self, source: sourceDictionary["shipping_amount"])
+                instance.amountTotal = Decoders.decodeOptional(clazz: Float.self, source: sourceDictionary["amount_total"])
+                return instance
+            }
+
+
             // Decoder for [Response]
             Decoders.addDecoder(clazz: [Response].self) { (source: AnyObject) -> [Response] in
                 return Decoders.decode(clazz: [Response].self, source: source)
@@ -279,6 +318,37 @@ class Decoders {
                 instance.price = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["price"])
                 instance.event = Decoders.decodeOptional(clazz: EventRequest.self, source: sourceDictionary["event"])
                 instance.recurpric = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["recurpric"])
+                return instance
+            }
+
+
+            // Decoder for [ServiceRequest]
+            Decoders.addDecoder(clazz: [ServiceRequest].self) { (source: AnyObject) -> [ServiceRequest] in
+                return Decoders.decode(clazz: [ServiceRequest].self, source: source)
+            }
+            // Decoder for ServiceRequest
+            Decoders.addDecoder(clazz: ServiceRequest.self) { (source: AnyObject) -> ServiceRequest in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = ServiceRequest()
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.desc = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["desc"])
+                instance.price = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["price"])
+                instance.recurpric = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["recurpric"])
+                return instance
+            }
+
+
+            // Decoder for [Variation]
+            Decoders.addDecoder(clazz: [Variation].self) { (source: AnyObject) -> [Variation] in
+                return Decoders.decode(clazz: [Variation].self, source: source)
+            }
+            // Decoder for Variation
+            Decoders.addDecoder(clazz: Variation.self) { (source: AnyObject) -> Variation in
+                let sourceDictionary = source as! [NSObject:AnyObject]
+                let instance = Variation()
+                instance.name = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["name"])
+                instance.priceChange = Decoders.decodeOptional(clazz: Double.self, source: sourceDictionary["priceChange"])
+                instance.id = Decoders.decodeOptional(clazz: String.self, source: sourceDictionary["id"])
                 return instance
             }
         }
